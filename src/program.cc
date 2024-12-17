@@ -28,8 +28,8 @@
 namespace cya {
 
 static const std::string kDescription = R"(
-  Uses the Kruskal algorithm to compute 
-  the Euclidean Minimum Spanning Tree (EMST) of a set of points.
+  Uses the QuickHull algorithm to find the 
+  convex hull of a set of points.
 )";
 
 static const std::string kExampleFile = R"(110
