@@ -15,9 +15,9 @@
  */
 
 #include <algorithm>
-#include <execution>
 #include <cerrno>
 #include <cmath>
+#include <execution>
 #include <fstream>
 #include <iomanip>
 #include <map>
@@ -206,8 +206,9 @@ void PointSet::QuickHullImproved(const Line& line, int side) {
     QuickHullImproved(Line(farthest, line.second),
                       -FindSide(Line(farthest, line.second), line.first));
   } else {
-    hull_.push_back(line.first);
-    hull_.push_back(line.second);
+    hull_.reserve(hull_.size() + 2);
+    hull_.emplace_back(line.first);
+    hull_.emplace_back(line.second);
   }
 }
 
