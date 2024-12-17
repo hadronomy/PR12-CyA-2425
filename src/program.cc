@@ -176,6 +176,11 @@ void Program::Run() {
 
   try {
     cli.Parse(arguments_);
+
+    if (cli.IsHelpRequested()) {
+      return;
+    }
+
     const std::string& input_filename = cli.GetValue<std::string>("input");
     const std::string& output_filename = cli.GetValue<std::string>("output");
     const std::string input = ReadFile(input_filename);
