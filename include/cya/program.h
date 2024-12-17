@@ -43,6 +43,7 @@ class Program {
   PointSet Process(const PointVector& points);
   PointSet ProcessImproved(const PointVector& points);
   PointSet ProcessMultistart(const PointVector& points);
+  PointSet ProcessRandom(const PointVector& points);
 
   std::vector<std::string> arguments_;
 };

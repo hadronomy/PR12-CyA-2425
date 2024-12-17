@@ -16,6 +16,7 @@
 
 #include <fstream>
 #include <iostream>
+#include <random>
 #include <sstream>
 
 #include "cya/cli.h"
@@ -173,6 +174,7 @@ void Program::Run() {
   cli.AddArgument("order", "o", "Prints the order of a point").SetMultiple(2).End();
   cli.AddArgument("bench", "b", "Run benchmarks").SetFlag().SetDefaultValue(false).End();
   cli.AddArgument("improved", "i", "Use improved algorithm").SetFlag().SetDefaultValue(false).End();
+  cli.AddArgument("random", "r", "Random hull").SetFlag().SetDefaultValue(false).End();
 
   try {
     cli.Parse(arguments_);
@@ -224,6 +226,8 @@ void Program::ProcessInput(const std::string& input, const std::string& output_f
   std::optional<PointSet> processed_points;
   if (cli.GetValue<bool>("improved")) {
     processed_points = ProcessImproved(points);
+  } else if (cli.GetValue<bool>("random")) {
+    processed_points = ProcessRandom(points);
   } else {
     processed_points = Process(points);
   }
@@ -264,6 +268,20 @@ PointSet Program::Process(const PointVector& points) {
 PointSet Program::ProcessImproved(const PointVector& points) {
   PointSet point_set(points);
   point_set.QuickHullImproved();
+  return point_set;
+}
+
+PointSet Program::ProcessRandom(const PointVector& points) {
+  auto new_points = points;
+  std::random_device rd;
+  std::mt19937 gen(rd());
+  std::shuffle(new_points.begin(), new_points.end(), gen);
+  new_points.resize(new_points.size() / 2);
+
+  PointSet point_set(new_points);
+  point_set.QuickHull();
+  point_set.clear();
+  point_set.insert(point_set.end(), points.begin(), points.end());
   return point_set;
 }
 
