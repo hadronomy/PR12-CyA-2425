@@ -1,0 +1,23 @@
+// Static tasks configuration.
+//
+// Example:
+[
+  {
+    "label": "CMake configure Debug",
+    "command": "cmake",
+    "args": ["-DCMAKE_BUILD_TYPE=Debug", "-B", "build/"],
+    "env": {},
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always"
+  },
+  {
+    "label": "CMake build",
+    "command": "cmake",
+    "args": ["--build", "build"],
+    "env": {},
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always"
+  }
+]
