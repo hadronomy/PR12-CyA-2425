@@ -17,7 +17,6 @@
 #include <algorithm>
 #include <cerrno>
 #include <cmath>
-#include <execution>
 #include <fstream>
 #include <iomanip>
 #include <map>
