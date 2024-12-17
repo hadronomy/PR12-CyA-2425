@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.20 FATAL_ERROR)
 set(PROJECT_NAMESPACE "cya")
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-project("PR11-CYA-2425"
+project("PR12-CYA-2425"
   VERSION 1.0.0
   DESCRIPTION "Práctica 11 de Cya 2425"
   LANGUAGES CXX)

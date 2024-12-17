@@ -9,7 +9,7 @@
       src="https://img.shields.io/badge/ULL-5C068C?style=for-the-badge&logo=gitbook&labelColor=302D41"
     />
   </a>
-  <a href="https://github.com/hadronomy/PR11-CyA-2425/blob/main/LICENSE">
+  <a href="https://github.com/hadronomy/PR12-CYA-2425/blob/main/LICENSE">
     <img
       alt="License"
       src="https://img.shields.io/badge/MIT-EE999F?style=for-the-badge&logo=starship&label=LICENSE&labelColor=302D41"

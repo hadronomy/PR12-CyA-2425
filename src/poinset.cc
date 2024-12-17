@@ -4,7 +4,7 @@
  * Grado en Ingenierıa Informática
  * Asignatura: Computabilidad y Algoritmia
  * Curso: 4º
- * Práctica 11: Algoritmos Voraces (Greedy)
+ * Práctica 12: Divide y Vencerás
  * Grado en Ingeniería Informática
  * Computabilidad y Algoritmia
  * Autor: Pablo Hernández Jiménez
@@ -15,6 +15,7 @@
  */
 
 #include <algorithm>
+#include <execution>
 #include <cerrno>
 #include <cmath>
 #include <fstream>
