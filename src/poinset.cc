@@ -17,6 +17,7 @@
 #include <algorithm>
 #include <cerrno>
 #include <cmath>
+#include <execution>
 #include <fstream>
 #include <iomanip>
 #include <map>
@@ -177,6 +178,39 @@ void PointSet::QuickHull(const Line& line, int side) {
   }
 }
 
+void PointSet::QuickHullImproved() {
+  if (size() < 3) {
+    hull_ = *this;
+    return;
+  }
+
+  Point min_x = PointVector::at(0);
+  Point max_x = PointVector::at(0);
+
+  XBounds(min_x, max_x);
+
+  hull_.clear();
+  QuickHullImproved(Line(min_x, max_x), 1);
+  QuickHullImproved(Line(min_x, max_x), -1);
+
+  // Remove duplicate points in the hull
+  std::sort(hull_.begin(), hull_.end());
+  hull_.erase(std::unique(hull_.begin(), hull_.end()), hull_.end());
+}
+
+void PointSet::QuickHullImproved(const Line& line, int side) {
+  Point farthest;
+  if (FarthestPointImproved(line, side, farthest)) {
+    QuickHullImproved(Line(line.first, farthest),
+                      -FindSide(Line(line.first, farthest), line.second));
+    QuickHullImproved(Line(farthest, line.second),
+                      -FindSide(Line(farthest, line.second), line.first));
+  } else {
+    hull_.push_back(line.first);
+    hull_.push_back(line.second);
+  }
+}
+
 bool PointSet::FarthestPoint(const Line& line, int side, Point& farthest) const {
   farthest = PointVector::at(0);
   double max_dist = 0;
@@ -191,6 +225,25 @@ bool PointSet::FarthestPoint(const Line& line, int side, Point& farthest) const 
       found = true;
     }
   }
+
+  return found;
+}
+
+bool PointSet::FarthestPointImproved(const Line& line, int side, Point& farthest) const {
+  double max_dist = -1;
+  bool found = false;
+
+  std::for_each(
+      __pstl::execution::par, PointVector::begin(), PointVector::end(), [&](const Point& point) {
+        if (FindSide(line, point) == side) {
+          double dist = Distance(line, point);
+          if (dist > max_dist) {
+            max_dist = dist;
+            farthest = point;
+            found = true;
+          }
+        }
+      });
 
   return found;
 }

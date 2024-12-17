@@ -31,6 +31,7 @@ class PointSet : public PointVector {
   void EMSTImproved(int start_point = 0);
   PointSet EMSTMultistart();
   void QuickHull();
+  void QuickHullImproved();
 
   void WriteDot(const std::string& filename) const;
   void Write(const std::string& filename) const;
@@ -51,6 +52,7 @@ class PointSet : public PointVector {
 
  private:
   void QuickHull(const Line& line, int side);
+  void QuickHullImproved(const Line& line, int side);
   void ComputeArcVector(ArcVector& arcs) const;
   void FindIncidentSubtrees(const Forest& forest, const Arc& arc, int& i, int& j) const;
   void MergeSubtrees(Forest& forest, const Arc& arc, int i, int j);
@@ -58,6 +60,7 @@ class PointSet : public PointVector {
   void XBounds(Point& min_x, Point& max_x) const;
   double PointToLine(const Line& line, const Point& point) const;
   bool FarthestPoint(const Line& line, int side, Point& farthest) const;
+  bool FarthestPointImproved(const Line& line, int side, Point& farthest) const;
   double Distance(const Line& line, const Point& point) const;
 
   double ComputeCost() const;
